@@ -1,9 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Inscription from '@/views/Inscription.vue' 
-import Login from '@/views/Login.vue'
-import AllProducts from '@/views/private/allproducts.vue'
-
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import Inscription from '@/views/Inscription.vue';
+import Login from '@/views/Login.vue';
+import UserView from '../views/Products.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,14 +11,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
     },
     {
       path: '/inscription',
@@ -32,13 +23,24 @@ const router = createRouter({
       component: Login
     },
     {
-      path: '/allproducts',
-      name : 'allproducts',
-      component: AllProducts
-    },
+      path: '/products',
+      name: 'products',
+      component: UserView,
+      meta: { requiresAuth: true } 
+    }
   ]
-})
+});
 
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('token'); 
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    
+    next({ name: 'Login' });
+  } else {
+   
+    next();
+  }
+});
 
+export default router;
 
-export default router

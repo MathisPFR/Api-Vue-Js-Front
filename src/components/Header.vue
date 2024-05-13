@@ -5,7 +5,7 @@
             <li><router-link to="/">Home</router-link></li>
             <li><RouterLink to="/inscription">Inscription</RouterLink></li>
             <li><router-link to="/login">Login</router-link></li>
-            <li><router-link to="allproducts">Tout les produits</router-link></li>
+            <li><router-link to="/products">Tout les produits</router-link></li>
 
         </ul>
     </header>
