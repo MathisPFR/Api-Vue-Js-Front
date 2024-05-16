@@ -1,18 +1,17 @@
 <template>
     <header class="header">
-    <h1>{{ title }}</h1>
         <ul>
             <li><router-link to="/">Home</router-link></li>
+            <li><router-link to="/products">Produits</router-link></li>
             <li><RouterLink to="/inscription">Inscription</RouterLink></li>
             <li><router-link to="/login">Login</router-link></li>
-            <li><router-link to="/products">Produits</router-link></li>
-            <li><router-link to="/categories">Catégories</router-link></li>
         </ul>
     </header>
 </template>
    
    <script setup>
-   
+
+
    </script>
    
    <style scoped>

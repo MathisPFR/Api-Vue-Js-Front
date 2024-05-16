@@ -4,7 +4,7 @@
       <form @submit.prevent="updateProduct">
         <div>
           <label for="title">Titre :</label>
-          <input type="text" id="title" v-model="updatedProduct.title" value="{{  }}">
+          <input type="text" id="title" v-model="updatedProduct.title">
         </div>
         <div>
           <label for="description">Description :</label>
@@ -12,7 +12,7 @@
         </div>
         <div>
           <label for="price">Prix :</label>
-          <input type="number" id="price" v-model="updatedProduct.price">
+          <input type="decimal" id="price" v-model="updatedProduct.price">
         </div>
         <div>
           <label for="stock">Stock :</label>
@@ -23,42 +23,121 @@
     </div>
   </template>
   
-  <script setup>
-  import { ref, onMounted } from 'vue';
-  import { useRouter } from 'vue-router';
-  import axios from 'axios';
-  import { useRoute } from 'vue-router';
-  
-  const route = useRoute();
-  const router = useRouter();
-  const productId = ref(route.params.id);
-  const updatedProduct = ref({
-    title: '',
-    description: '',
-    price: 0,
-    stock: 0,
-  });
-  
-  const fetchProductDetails = async () => {
-    try {
-      const response = await axios.get(`products/${productId.value}`);
-      updatedProduct.value = response.data.data;
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error fetching product details:', error);
+  <script>
+
+// import axios from 'axios';
+// import { ref } from 'vue';
+
+// export default {
+//   data() {
+//     return {
+//       productId: '',
+//       updatedProduct: {
+//         title: '',
+//         description: '',
+//         price: 0,
+//         stock: 0,
+//         categories: [],
+//       },
+//     };
+//   },
+//   mounted() {
+//     this.productId = this.$route.params.id;
+//     this.fetchProductDetails();
+//     this.fetchCategories(); // Appel de la fonction fetchCategories lors du montage du composant
+//   },
+//   methods: {
+//     fetchProductDetails() {
+//       axios
+//         .get(`products/${this.productId}`)
+//         .then((response) => {
+//           this.updatedProduct = response.data.products;
+//         })
+//         .catch((error) => {
+//           console.error('Error fetching product details:', error);
+//         });
+//     },
+//     fetchCategories() {
+//       axios
+//         .get('categories')
+//         .then((response) => {
+//           this.updatedProduct.categories = response.data.data;
+//           console.log('Categories:', this.updatedProduct.categories);
+//         })
+//         .catch((error) => {
+//           console.error('Error fetching categories:', error);
+//         });
+//     },
+//     updateProduct() {
+//       axios
+//         .put(`products/${this.productId}`, this.updatedProduct)
+//         .then(() => {
+//           console.log('Product updated successfully');
+//           this.$router.push({ name: 'products' });
+//         })
+//         .catch((error) => {
+//           console.error('Error updating product:', error);
+//         });
+//     },
+//   },
+// };
+
+
+
+
+
+
+
+
+
+
+
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      productId: '',
+      updatedProduct: {
+        title: '',
+        description: '',
+        price: 0,
+        stock: 0,
+        
+      }
+    };
+  },
+  mounted() {
+    this.productId = this.$route.params.id;
+    this.fetchProductDetails();
+  },
+  methods: {
+    fetchProductDetails() {
+      axios
+        .get(`products/${this.productId}`)
+        .then((response) => {
+          this.updatedProduct = response.data.products;
+          
+
+          console.log(response.data.category);
+        })
+        .catch((error) => {
+          console.error('Error fetching product details:', error);
+        });
+    },
+    updateProduct() {
+      axios
+        .put(`products/${this.productId}`, this.updatedProduct)
+        .then(() => {
+          console.log('Product updated successfully');
+          this.$router.push({ name: 'products' });
+        })
+        .catch((error) => {
+          console.error('Error updating product:', error);
+        });
     }
-  };
-  
-  onMounted(fetchProductDetails);
-  
-  const updateProduct = async () => {
-    try {
-      await axios.put(`products/${productId.value}`, updatedProduct.value);
-      console.log('Product updated successfully');
-      router.push({ name: 'products' });
-    } catch (error) {
-      console.error('Error updating product:', error);
-    }
-  };
+  }
+};
+
   </script>
   

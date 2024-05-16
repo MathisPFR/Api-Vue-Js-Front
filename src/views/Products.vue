@@ -1,6 +1,8 @@
 <template>
     <div>
 
+        <ButtonLogout/>
+
         <div>
             <a href="/AddProduct" class="add-prduct-btn">Ajouter un produit</a>
         </div>
@@ -37,6 +39,7 @@
 import { onMounted, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import EditProduct from './EditProduct.vue';
+import ButtonLogout from '@/components/ButtonLogout.vue'
 const router = useRouter();
 const products = reactive({
     
