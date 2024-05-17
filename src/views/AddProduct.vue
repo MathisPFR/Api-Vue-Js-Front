@@ -65,7 +65,7 @@ onMounted(fetchCategories);
   async function submitForm() {
     try {
       await axios.post('products', newProduct.value);
-      // router.push({ name: 'products' });
+      router.push({ name: 'products' });
       
     } catch (error) {
       console.error('Error adding product:', error);
